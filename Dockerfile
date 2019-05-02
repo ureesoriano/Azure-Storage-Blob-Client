@@ -7,10 +7,11 @@ RUN export DEBIAN_FRONTEND=noninteractive
  RUN apt-get update && apt-get install -y  \
   apt-transport-https \
   build-essential \
+  perl \
   cpanminus \
   libmodule-install-perl \
   libssl-dev \
-  perl \
+  libxml2-dev \
 && apt clean
 
 # Install cpm
@@ -27,5 +28,6 @@ RUN cpm install -g \
   Moose \
   Digest::SHA \
   MIME::Base64 \
+  XML::LibXML \
   Data::Dumper \
 && rm -rf ~/.perl-cpm

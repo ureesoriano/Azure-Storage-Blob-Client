@@ -6,6 +6,7 @@ use HTTP::Request;
 use HTTP::Date;
 use Digest::SHA qw(hmac_sha256_base64);
 use MIME::Base64;
+use XML::LibXML;
 
 has user_agent => (
   is => 'ro',
@@ -17,7 +18,9 @@ sub request {
   my ($self, $call_object) = @_;
 
   my $request = $self->_prepare_request($call_object);
-  return $self->user_agent->request($request);
+  my $response = $self->user_agent->request($request);
+
+  return $self->_parse_response($response);
 }
 
 sub _prepare_request {
@@ -36,6 +39,15 @@ sub _prepare_request {
   $self->_set_headers($request, $call_object);
 
   return $request;
+}
+
+sub _parse_response {
+  my ($self, $response) = @_;
+  my $dom = XML::LibXML->load_xml(string => $response->content);
+
+  return [
+    map { $_->to_literal() } $dom->findnodes('/EnumerationResults/Blobs/Blob/Name')
+  ];
 }
 
 sub _set_headers {
