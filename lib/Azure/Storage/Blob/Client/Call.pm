@@ -14,4 +14,13 @@ sub serialize_parameters {
   };
 }
 
+sub serialize_header_parameters {
+  my $self = shift;
+  return {
+    map { $self->meta->get_attribute($_)->header_name => $self->$_ }
+    grep { $self->meta->get_attribute($_)->does('HeaderParameter') }
+    $self->meta->get_attribute_list()
+  };
+}
+
 1;
