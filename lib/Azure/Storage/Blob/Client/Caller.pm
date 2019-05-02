@@ -25,14 +25,16 @@ sub request {
 sub _prepare_request {
   my ($self, $call_object) = @_;
 
-  if ($call_object->operation ne 'ListBlobs') {
+  if ($call_object->operation ne 'ListBlobs' and $call_object->operation ne 'GetBlobProperties') {
     die 'Unimplemented.';
   }
 
   my $url_encoded_parameters = HTTP::Tiny->new->www_form_urlencode(
     $call_object->serialize_parameters(),
   );
-  my $url = sprintf("%s&%s", $call_object->endpoint, $url_encoded_parameters);
+  my $url = $url_encoded_parameters
+    ? sprintf("%s&%s", $call_object->endpoint, $url_encoded_parameters)
+    : $call_object->endpoint;
   my $request = HTTP::Request->new($call_object->method => $url);
 
   $self->_set_headers($request, $call_object);
