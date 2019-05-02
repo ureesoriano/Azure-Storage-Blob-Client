@@ -25,7 +25,7 @@ sub request {
 sub _prepare_request {
   my ($self, $call_object) = @_;
 
-  if ($call_object->method ne 'GET') {
+  if ($call_object->operation ne 'ListBlobs') {
     die 'Unimplemented.';
   }
 
