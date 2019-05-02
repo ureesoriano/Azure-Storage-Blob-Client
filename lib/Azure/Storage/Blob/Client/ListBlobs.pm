@@ -12,6 +12,8 @@ has 'endpoint' => (is => 'ro', init_arg => undef, lazy => 1, default => sub {
 });
 has 'method' => (is => 'ro', init_arg => undef, default => 'GET');
 
+with 'Azure::Storage::Blob::Client::Call';
+
 has container => (is => 'ro', isa => 'Str', required => 1);
 has account_name => (is => 'ro', isa => 'Str', required => 1);
 has account_key => (is => 'ro', isa => 'Str', required => 1);
