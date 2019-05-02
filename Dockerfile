@@ -25,5 +25,7 @@ RUN cpm install -g \
   HTTP::Date \
   LWP::UserAgent \
   Moose \
+  Digest::SHA \
+  MIME::Base64 \
   Data::Dumper \
 && rm -rf ~/.perl-cpm

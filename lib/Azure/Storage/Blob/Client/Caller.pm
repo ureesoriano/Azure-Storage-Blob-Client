@@ -4,6 +4,8 @@ use LWP::UserAgent;
 use HTTP::Tiny;
 use HTTP::Request;
 use HTTP::Date;
+use Digest::SHA qw(hmac_sha256_base64);
+use MIME::Base64;
 
 has user_agent => (
   is => 'ro',
@@ -41,6 +43,66 @@ sub _set_headers {
 
   $request->header('x-ms-version', '2018-03-28');
   $request->header('Date', HTTP::Date::time2str());
+  $request->header('Authorization',
+    sprintf(
+      "SharedKey %s:%s",
+      $call_object->account_name,
+      $self->_calculate_signature($request, $call_object),
+    ),
+  );
+}
+
+# Docs: https://docs.microsoft.com/en-us/rest/api/storageservices/authorize-with-shared-key
+sub _calculate_signature {
+  my ($self, $request, $call_object) = @_;
+  my $signature_string =
+    $request->method()                      ."\n".
+    $request->header('Content-Encoding')    ."\n".
+    $request->header('Content-Language')    ."\n".
+    $request->header('Content-Length')      ."\n".
+    $request->header('Content-MD5')         ."\n".
+    $request->header('Content-Type')        ."\n".
+    $request->header('Date')                ."\n".
+    $request->header('If-Modified-Since')   ."\n".
+    $request->header('If-Math')             ."\n".
+    $request->header('If-None-Match')       ."\n".
+    $request->header('If-Unmodified-Since') ."\n".
+    $request->header('Range')               ."\n".
+    $self->_canonicalized_headers_string($request).
+    $self->_canonicalized_resource_string($request, $call_object);
+
+  my $signature = Digest::SHA::hmac_sha256_base64(
+    $signature_string,
+    MIME::Base64::decode_base64($call_object->account_key),
+  );
+
+  return "$signature=";
+}
+
+sub _canonicalized_headers_string {
+  my ($self, $request) = @_;
+
+  return join("",
+    map { sprintf("%s:%s\n", lc($_), $request->header($_)) }
+    sort
+    grep { $_ =~ /^x-ms/i }
+    $request->header_field_names()
+  );
+}
+
+sub _canonicalized_resource_string {
+  my ($self, $request, $call_object) = @_;
+  my %query_form = $request->uri->query_form;
+
+  return
+    "/" .
+    $call_object->account_name .
+    $request->uri->path .
+    join("",
+      map { "\n" . lc($_) . ":" . $query_form{$_} } # TODO: params with multiple values
+      sort
+      keys %query_form
+    );
 }
 
 __PACKAGE__->meta->make_immutable();
