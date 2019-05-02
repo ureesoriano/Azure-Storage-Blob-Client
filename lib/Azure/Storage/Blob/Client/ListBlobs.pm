@@ -3,7 +3,8 @@ use Moose;
 use Azure::Storage::Blob::Client::Meta::Attribute::Custom::Trait::CallParameter;
 use XML::LibXML;
 
-has 'endpoint' => (is => 'ro', init_arg => undef, lazy => 1, default => sub {
+has operation => (is => 'ro', init_arg => undef, default => 'ListBlobs');
+has endpoint => (is => 'ro', init_arg => undef, lazy => 1, default => sub {
   my $self = shift;
   return sprintf(
     'https://%s.blob.core.windows.net/%s?restype=container&comp=list',
@@ -11,7 +12,7 @@ has 'endpoint' => (is => 'ro', init_arg => undef, lazy => 1, default => sub {
     $self->container,
   );
 });
-has 'method' => (is => 'ro', init_arg => undef, default => 'GET');
+has method => (is => 'ro', init_arg => undef, default => 'GET');
 
 with 'Azure::Storage::Blob::Client::Call';
 

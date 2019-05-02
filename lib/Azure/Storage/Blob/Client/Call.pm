@@ -3,6 +3,7 @@ use Moose::Role;
 
 requires 'endpoint';
 requires 'method';
+requires 'operation';
 
 sub serialize_parameters {
   my $self = shift;
