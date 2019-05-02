@@ -1,8 +1,17 @@
 package Azure::Storage::Blob::Client;
 use Moose;
 use Azure::Storage::Blob::Client::ListBlobs;
+use Azure::Storage::Blob::Client::Caller;
 
 our $VERSION = 0.01;
+
+has caller => (
+  is => 'ro',
+  lazy => 1,
+  default => sub {
+    return Azure::Storage::Blob::Client::Caller->new();
+  },
+);
 
 sub ListBlobs {
   my ($self, %params) = @_;

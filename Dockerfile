@@ -21,6 +21,9 @@ WORKDIR /code
 # Install perl dependencies
 RUN cpm install -g \
   HTTP::Tiny \
+  HTTP::Request \
+  HTTP::Date \
+  LWP::UserAgent \
   Moose \
   Data::Dumper \
 && rm -rf ~/.perl-cpm
