@@ -1,0 +1,9 @@
+requires 'Data::Dumper';
+requires 'Digest::SHA';
+requires 'HTTP::Tiny';
+requires 'HTTP::Request';
+requires 'HTTP::Date';
+requires 'LWP::UserAgent';
+requires 'MIME::Base64';
+requires 'Moose';
+requires 'XML::LibXML';

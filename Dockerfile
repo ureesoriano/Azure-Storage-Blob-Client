@@ -17,17 +17,10 @@ RUN export DEBIAN_FRONTEND=noninteractive
 # Install cpm
 RUN cpanm -nq App::cpm && rm -rf $HOME/.cpanm
 
+COPY cpanfile /code/cpanfile
 WORKDIR /code
 
 # Install perl dependencies
 RUN cpm install -g \
-  HTTP::Tiny \
-  HTTP::Request \
-  HTTP::Date \
-  LWP::UserAgent \
-  Moose \
-  Digest::SHA \
-  MIME::Base64 \
-  XML::LibXML \
-  Data::Dumper \
+  --cpanfile=./cpanfile \
 && rm -rf ~/.perl-cpm
