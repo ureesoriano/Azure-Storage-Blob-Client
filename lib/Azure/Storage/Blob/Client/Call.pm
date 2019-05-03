@@ -5,11 +5,11 @@ requires 'endpoint';
 requires 'method';
 requires 'operation';
 
-sub serialize_parameters {
+sub serialize_uri_parameters {
   my $self = shift;
   return {
     map { $_ => $self->$_ }
-    grep { $self->meta->get_attribute($_)->does('CallParameter') }
+    grep { $self->meta->get_attribute($_)->does('URIParameter') }
     $self->meta->get_attribute_list()
   };
 }

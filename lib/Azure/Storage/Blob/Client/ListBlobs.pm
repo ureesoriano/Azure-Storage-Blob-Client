@@ -1,6 +1,6 @@
 package Azure::Storage::Blob::Client::ListBlobs;
 use Moose;
-use Azure::Storage::Blob::Client::Meta::Attribute::Custom::Trait::CallParameter;
+use Azure::Storage::Blob::Client::Meta::Attribute::Custom::Trait::URIParameter;
 use XML::LibXML;
 
 has operation => (is => 'ro', init_arg => undef, default => 'ListBlobs');
@@ -19,7 +19,7 @@ with 'Azure::Storage::Blob::Client::Call';
 has container => (is => 'ro', isa => 'Str', required => 1);
 has account_name => (is => 'ro', isa => 'Str', required => 1);
 has account_key => (is => 'ro', isa => 'Str', required => 1);
-has prefix => (is => 'ro', isa => 'Str', traits => ['CallParameter'], required => 1);
+has prefix => (is => 'ro', isa => 'Str', traits => ['URIParameter'], required => 1);
 
 sub parse_response {
   my ($self, $response) = @_;

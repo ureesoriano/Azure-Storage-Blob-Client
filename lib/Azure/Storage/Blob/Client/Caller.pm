@@ -36,7 +36,7 @@ sub _prepare_request {
   }
 
   my $url_encoded_parameters = HTTP::Tiny->new->www_form_urlencode(
-    $call_object->serialize_parameters(),
+    $call_object->serialize_uri_parameters(),
   );
   my $url = $url_encoded_parameters
     ? sprintf("%s&%s", $call_object->endpoint, $url_encoded_parameters)
