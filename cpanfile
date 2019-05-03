@@ -1,5 +1,6 @@
 requires 'Data::Dumper';
 requires 'Digest::SHA';
+requires 'Encode';
 requires 'HTTP::Date';
 requires 'HTTP::Headers';
 requires 'HTTP::Request';
