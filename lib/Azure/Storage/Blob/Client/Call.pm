@@ -23,4 +23,13 @@ sub serialize_header_parameters {
   };
 }
 
+sub serialize_body_parameters {
+  my $self = shift;
+  return {
+    map { $_ => $self->$_ }
+    grep { $self->meta->get_attribute($_)->does('BodyParameter') }
+    $self->meta->get_attribute_list()
+  };
+}
+
 1;
