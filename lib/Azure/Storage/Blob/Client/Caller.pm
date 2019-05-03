@@ -3,6 +3,7 @@ use Moose;
 use LWP::UserAgent;
 use HTTP::Tiny;
 use HTTP::Request;
+use HTTP::Headers;
 use HTTP::Date;
 use Digest::SHA qw(hmac_sha256_base64);
 use MIME::Base64;
@@ -35,18 +36,25 @@ sub _prepare_request {
   my $url = $url_encoded_parameters
     ? sprintf("%s&%s", $call_object->endpoint, $url_encoded_parameters)
     : $call_object->endpoint;
-  my $request = HTTP::Request->new($call_object->method => $url);
 
-  $self->_set_headers($request, $call_object);
+  my $headers = $self->_build_headers($call_object);
+  my $request = HTTP::Request->new($call_object->method, $url, $headers);
+  $self->_sign_request($request, $call_object);
 
   return $request;
 }
 
-sub _set_headers {
-  my ($self, $request, $call_object) = @_;
+sub _build_headers {
+  my ($self, $call_object) = @_;
 
-  $request->header('x-ms-version', '2018-03-28');
-  $request->header('Date', HTTP::Date::time2str());
+  return HTTP::Headers->new(
+    'x-ms-version' => '2018-03-28',
+    'Date'=> HTTP::Date::time2str(),
+  );
+}
+
+sub _sign_request {
+  my ($self, $request, $call_object) = @_;
   $request->header('Authorization',
     sprintf(
       "SharedKey %s:%s",
