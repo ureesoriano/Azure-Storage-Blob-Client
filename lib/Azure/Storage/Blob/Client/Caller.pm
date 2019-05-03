@@ -27,7 +27,11 @@ sub request {
 sub _prepare_request {
   my ($self, $call_object) = @_;
 
-  if ($call_object->operation ne 'ListBlobs' and $call_object->operation ne 'GetBlobProperties') {
+  if (
+    $call_object->operation ne 'GetBlobProperties' and
+    $call_object->operation ne 'ListBlobs' and
+    $call_object->operation ne 'PutBlob'
+  ) {
     die 'Unimplemented.';
   }
 
