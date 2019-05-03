@@ -9,3 +9,8 @@ requires 'LWP::UserAgent';
 requires 'MIME::Base64';
 requires 'Moose';
 requires 'XML::LibXML';
+
+on test => sub {
+  requires 'Test::Spec::Acceptance';
+  requires 'App::Prove::Watch';
+};
