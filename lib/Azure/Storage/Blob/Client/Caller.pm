@@ -61,6 +61,7 @@ sub _build_headers {
     'x-ms-version' => '2018-03-28',
     'Date'=> HTTP::Date::time2str(),
     $body ? ('Content-Length' => length(Encode::encode_utf8($body))) : (),
+    %{ $call_object->serialize_header_parameters() },
   );
 }
 
