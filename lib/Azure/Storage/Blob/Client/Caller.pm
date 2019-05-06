@@ -1,5 +1,6 @@
 package Azure::Storage::Blob::Client::Caller;
 use Moose;
+use Data::Dumper;
 use LWP::UserAgent;
 use HTTP::Tiny;
 use HTTP::Request;
@@ -10,6 +11,7 @@ use MIME::Base64;
 use Encode;
 
 use Azure::Storage::Blob::Client::Service::Signer;
+use Azure::Storage::Blob::Client::Exception;
 
 has user_agent => (
   is => 'ro',
@@ -29,6 +31,7 @@ sub request {
 
   my $request = $self->_prepare_request($call_object);
   my $response = $self->user_agent->request($request);
+  $self->_handle_storage_account_api_exceptions($response);
 
   return $call_object->parse_response($response);
 }
@@ -57,6 +60,26 @@ sub _prepare_request {
   $self->_sign_request($request, $call_object);
 
   return $request;
+}
+
+sub _handle_storage_account_api_exceptions {
+  my ($self, $response) = @_;
+
+  return unless ($response->code >= 400);
+
+  if ($response->header('x-ms-error-code')) {
+    Azure::Storage::Blob::Client::Exception->throw({
+      code => $response->header('x-ms-error-code'),
+      message => $response->message,
+    });
+  }
+  else {
+    Azure::Storage::Blob::Client::Exception->throw({
+      code => 'UnknownAzureStorageAPIError',
+      message => 'Unknown Azure Storage Blob API error (x-ms-error-code not found in the '
+                .' response). Response: '.Dumper($response),
+    });
+  }
 }
 
 sub _build_body_content {
