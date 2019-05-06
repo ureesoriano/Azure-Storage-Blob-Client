@@ -84,7 +84,11 @@ sub _sign_request {
     sprintf(
       "SharedKey %s:%s",
       $call_object->account_name,
-      $self->signer->calculate_signature($request, $call_object),
+      $self->signer->calculate_signature(
+        $request,
+        $call_object->account_name,
+        $call_object->account_key,
+      ),
     ),
   );
 }

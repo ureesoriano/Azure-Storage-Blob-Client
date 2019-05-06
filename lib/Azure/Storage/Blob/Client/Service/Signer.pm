@@ -5,7 +5,7 @@ use MIME::Base64;
 
 # Docs: https://docs.microsoft.com/en-us/rest/api/storageservices/authorize-with-shared-key
 sub calculate_signature {
-  my ($self, $request, $call_object) = @_;
+  my ($self, $request, $account_name, $account_key) = @_;
   my $signature_string =
     $request->method()                      ."\n".
     $request->header('Content-Encoding')    ."\n".
@@ -20,11 +20,11 @@ sub calculate_signature {
     $request->header('If-Unmodified-Since') ."\n".
     $request->header('Range')               ."\n".
     $self->_canonicalized_headers_string($request).
-    $self->_canonicalized_resource_string($request, $call_object);
+    $self->_canonicalized_resource_string($request, $account_name);
 
   my $signature = Digest::SHA::hmac_sha256_base64(
     $signature_string,
-    MIME::Base64::decode_base64($call_object->account_key),
+    MIME::Base64::decode_base64($account_key),
   );
 
   return "$signature=";
@@ -42,12 +42,12 @@ sub _canonicalized_headers_string {
 }
 
 sub _canonicalized_resource_string {
-  my ($self, $request, $call_object) = @_;
+  my ($self, $request, $account_name) = @_;
   my %query_form = $request->uri->query_form;
 
   return
     "/" .
-    $call_object->account_name .
+    $account_name .
     $request->uri->path .
     join("",
       map { "\n" . lc($_) . ":" . $query_form{$_} } # TODO: params with multiple values
