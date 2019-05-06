@@ -20,14 +20,21 @@ has container => (is => 'ro', isa => 'Str', required => 1);
 has account_name => (is => 'ro', isa => 'Str', required => 1);
 has account_key => (is => 'ro', isa => 'Str', required => 1);
 has prefix => (is => 'ro', isa => 'Str', traits => ['URIParameter'], required => 1);
+has maxresults => (is => 'ro', isa => 'Str', traits => ['URIParameter'], required => 0);
+has marker => (is => 'ro', isa => 'Str', traits => ['URIParameter'], required => 0);
 
 sub parse_response {
   my ($self, $response) = @_;
   my $dom = XML::LibXML->load_xml(string => $response->content);
 
-  return [
-    map { $_->to_literal() } $dom->findnodes('/EnumerationResults/Blobs/Blob/Name')
-  ];
+  return {
+    Blobs => [
+      map { $_->to_literal() } $dom->findnodes('/EnumerationResults/Blobs/Blob/Name')
+    ],
+    $dom->findnodes('/EnumerationResults/NextMarker')
+      ? ( NextMarker => shift @{[ map { $_->to_literal() } $dom->findnodes('/EnumerationResults/NextMarker') ]} )
+      : (),
+  };
 }
 
 __PACKAGE__->meta->make_immutable();
