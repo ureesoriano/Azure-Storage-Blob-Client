@@ -11,6 +11,7 @@ requires 'Moose';
 requires 'XML::LibXML';
 
 on test => sub {
-  requires 'Test::Spec::Acceptance';
   requires 'App::Prove::Watch';
+  requires 'Test::MockTime';
+  requires 'Test::Spec::Acceptance';
 };
