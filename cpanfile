@@ -8,6 +8,7 @@ requires 'HTTP::Tiny';
 requires 'LWP::UserAgent';
 requires 'MIME::Base64';
 requires 'Moose';
+requires 'Throwable::Error';
 requires 'XML::LibXML';
 
 on test => sub {
