@@ -16,11 +16,13 @@ has caller => (
 );
 has account_name => (is => 'ro', isa => 'Str', required => 1);
 has account_key => (is => 'ro', isa => 'Str', required => 1);
+has api_version => (is => 'ro', isa => 'Str', default => '2018-03-28');
 
 sub GetBlobProperties {
   my ($self, %params) = @_;
   my $call_object = Azure::Storage::Blob::Client::GetBlobProperties->new(
     account_name => $self->account_name,
+    api_version => $self->api_version,
     %params,
   );
   return $self->caller->request(
@@ -34,6 +36,7 @@ sub ListBlobs {
   my ($self, %params) = @_;
   my $call_object = Azure::Storage::Blob::Client::ListBlobs->new(
     account_name => $self->account_name,
+    api_version => $self->api_version,
     %params,
   );
   return $self->caller->request(
@@ -47,6 +50,7 @@ sub PutBlob {
   my ($self, %params) = @_;
   my $call_object = Azure::Storage::Blob::Client::PutBlob->new(
     account_name => $self->account_name,
+    api_version => $self->api_version,
     %params,
   );
   return $self->caller->request(

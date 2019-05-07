@@ -1,6 +1,7 @@
 package Azure::Storage::Blob::Client::ListBlobs;
 use Moose;
 use Azure::Storage::Blob::Client::Meta::Attribute::Custom::Trait::URIParameter;
+use Azure::Storage::Blob::Client::Meta::Attribute::Custom::Trait::HeaderParameter;
 use XML::LibXML;
 
 has operation => (is => 'ro', init_arg => undef, default => 'ListBlobs');
@@ -17,6 +18,7 @@ has method => (is => 'ro', init_arg => undef, default => 'GET');
 with 'Azure::Storage::Blob::Client::Call';
 
 has account_name => (is => 'ro', isa => 'Str', required => 1);
+has api_version => (is => 'ro', isa => 'Str', traits => ['HeaderParameter'], header_name => 'x-ms-version', required => 1);
 has container => (is => 'ro', isa => 'Str', required => 1);
 has prefix => (is => 'ro', isa => 'Str', traits => ['URIParameter'], required => 1);
 has maxresults => (is => 'ro', isa => 'Str', traits => ['URIParameter'], required => 0);

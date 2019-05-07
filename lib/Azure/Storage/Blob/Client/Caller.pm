@@ -94,7 +94,6 @@ sub _build_headers {
   my ($self, $call_object, $body) = @_;
 
   return HTTP::Headers->new(
-    'x-ms-version' => '2018-03-28',
     'Date'=> HTTP::Date::time2str(),
     $body ? ('Content-Length' => length(Encode::encode_utf8($body))) : (),
     %{ $call_object->serialize_header_parameters() },
