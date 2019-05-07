@@ -27,9 +27,9 @@ has signer => (
 );
 
 sub request {
-  my ($self, $call_object) = @_;
+  my ($self, $account_name, $account_key, $call_object) = @_;
 
-  my $request = $self->_prepare_request($call_object);
+  my $request = $self->_prepare_request($account_name, $account_key, $call_object);
   my $response = $self->user_agent->request($request);
   $self->_handle_storage_account_api_exceptions($response);
 
@@ -37,7 +37,7 @@ sub request {
 }
 
 sub _prepare_request {
-  my ($self, $call_object) = @_;
+  my ($self, $account_name, $account_key, $call_object) = @_;
 
   if (
     $call_object->operation ne 'GetBlobProperties' and
@@ -57,7 +57,7 @@ sub _prepare_request {
   my $body = $self->_build_body_content($call_object);
   my $headers = $self->_build_headers($call_object, $body);
   my $request = HTTP::Request->new($call_object->method, $url, $headers, $body);
-  $self->_sign_request($request, $call_object);
+  $self->_sign_request($request, $account_name, $account_key, $call_object);
 
   return $request;
 }
@@ -102,15 +102,15 @@ sub _build_headers {
 }
 
 sub _sign_request {
-  my ($self, $request, $call_object) = @_;
+  my ($self, $request, $account_name, $account_key, $call_object) = @_;
   $request->header('Authorization',
     sprintf(
       "SharedKey %s:%s",
       $call_object->account_name,
       $self->signer->calculate_signature(
         $request,
-        $call_object->account_name,
-        $call_object->account_key,
+        $account_name,
+        $account_key,
       ),
     ),
   );
