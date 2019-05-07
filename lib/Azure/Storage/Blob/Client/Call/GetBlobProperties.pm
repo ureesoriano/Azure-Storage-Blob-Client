@@ -1,4 +1,4 @@
-package Azure::Storage::Blob::Client::GetBlobProperties;
+package Azure::Storage::Blob::Client::Call::GetBlobProperties;
 use Moose;
 use Azure::Storage::Blob::Client::Meta::Attribute::Custom::Trait::HeaderParameter;
 

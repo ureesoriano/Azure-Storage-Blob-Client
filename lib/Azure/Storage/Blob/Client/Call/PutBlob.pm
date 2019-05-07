@@ -1,4 +1,4 @@
-package Azure::Storage::Blob::Client::PutBlob;
+package Azure::Storage::Blob::Client::Call::PutBlob;
 use Moose;
 use Azure::Storage::Blob::Client::Meta::Attribute::Custom::Trait::BodyParameter;
 use Azure::Storage::Blob::Client::Meta::Attribute::Custom::Trait::HeaderParameter;
