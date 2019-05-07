@@ -18,6 +18,7 @@ has method => (is => 'ro', init_arg => undef, default => 'PUT');
 with 'Azure::Storage::Blob::Client::Call';
 
 has account_name => (is => 'ro', isa => 'Str', required => 1);
+has api_version => (is => 'ro', isa => 'Str', traits => ['HeaderParameter'], header_name => 'x-ms-version', required => 1);
 has container => (is => 'ro', isa => 'Str', required => 1);
 has blob_name => (is => 'ro', isa => 'Str', required => 1);
 has blob_type => (is => 'ro', isa => 'Str', traits => ['HeaderParameter'], header_name => 'x-ms-blob-type', required => 1);

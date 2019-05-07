@@ -14,6 +14,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
   my ($caller, $error, $ua_mock, $signer_mock);
   my $account_name = 'myaccount';
   my $account_key = 'supersecret';
+  my $api_version = '2018-03-28';
 
   before each => sub {
     $ua_mock = mock();
@@ -36,6 +37,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
         container => 'mycontainer',
         account_name => $account_name,
         account_key => $account_key,
+        api_version => $api_version,
         blob_name => 'myblob',
       );
     };
@@ -69,6 +71,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
         container => 'mycontainer',
         account_name => $account_name,
         account_key => $account_key,
+        api_version => $api_version,
         blob_name => 'myblob',
       );
     };
@@ -101,6 +104,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
       $call_object = Azure::Storage::Blob::Client::GetBlobProperties->new(
         container => 'mycontainer',
         account_name => $account_name,
+        api_version => $api_version,
         account_key => $account_key,
         blob_name => 'myblob',
       );
@@ -134,6 +138,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
         container => 'mycontainer',
         account_name => $account_name,
         account_key => $account_key,
+        api_version => $api_version,
         blob_name => 'myblob',
       );
     };
@@ -166,6 +171,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
         container => 'mycontainer',
         account_name => $account_name,
         account_key => $account_key,
+        api_version => $api_version,
         blob_name => 'myblob',
       );
     };
@@ -198,6 +204,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
         container => 'mycontainer',
         account_name => $account_name,
         account_key => $account_key,
+        api_version => $api_version,
         blob_name => 'myblob',
       );
     };
@@ -230,6 +237,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
         container => 'mycontainer',
         account_name => $account_name,
         account_key => $account_key,
+        api_version => $api_version,
         blob_name => 'myblob',
       );
     };
