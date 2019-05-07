@@ -7,7 +7,7 @@ use Test::Spec::Acceptance;
 use Test::Exception;
 use HTTP::Headers;
 use HTTP::Response;
-use Azure::Storage::Blob::Client::GetBlobProperties;
+use Azure::Storage::Blob::Client::Call::GetBlobProperties;
 use Azure::Storage::Blob::Client::Caller;
 
 Feature 'Azure Storage Account API Exceptions handling' => sub {
@@ -33,7 +33,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
     my $call_object;
 
     Given 'a GetBlobProperties call object' => sub {
-      $call_object = Azure::Storage::Blob::Client::GetBlobProperties->new(
+      $call_object = Azure::Storage::Blob::Client::Call::GetBlobProperties->new(
         container => 'mycontainer',
         account_name => $account_name,
         account_key => $account_key,
@@ -67,7 +67,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
     my $call_object;
 
     Given 'a GetBlobProperties call object' => sub {
-      $call_object = Azure::Storage::Blob::Client::GetBlobProperties->new(
+      $call_object = Azure::Storage::Blob::Client::Call::GetBlobProperties->new(
         container => 'mycontainer',
         account_name => $account_name,
         account_key => $account_key,
@@ -101,7 +101,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
     my $call_object;
 
     Given 'a GetBlobProperties call object' => sub {
-      $call_object = Azure::Storage::Blob::Client::GetBlobProperties->new(
+      $call_object = Azure::Storage::Blob::Client::Call::GetBlobProperties->new(
         container => 'mycontainer',
         account_name => $account_name,
         api_version => $api_version,
@@ -134,7 +134,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
     my $call_object;
 
     Given 'a GetBlobProperties call object' => sub {
-      $call_object = Azure::Storage::Blob::Client::GetBlobProperties->new(
+      $call_object = Azure::Storage::Blob::Client::Call::GetBlobProperties->new(
         container => 'mycontainer',
         account_name => $account_name,
         account_key => $account_key,
@@ -167,7 +167,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
     my $call_object;
 
     Given 'a GetBlobProperties call object' => sub {
-      $call_object = Azure::Storage::Blob::Client::GetBlobProperties->new(
+      $call_object = Azure::Storage::Blob::Client::Call::GetBlobProperties->new(
         container => 'mycontainer',
         account_name => $account_name,
         account_key => $account_key,
@@ -200,7 +200,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
     my $call_object;
 
     Given 'a GetBlobProperties call object' => sub {
-      $call_object = Azure::Storage::Blob::Client::GetBlobProperties->new(
+      $call_object = Azure::Storage::Blob::Client::Call::GetBlobProperties->new(
         container => 'mycontainer',
         account_name => $account_name,
         account_key => $account_key,
@@ -233,7 +233,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
     my $call_object;
 
     Given 'a GetBlobProperties call object' => sub {
-      $call_object = Azure::Storage::Blob::Client::GetBlobProperties->new(
+      $call_object = Azure::Storage::Blob::Client::Call::GetBlobProperties->new(
         container => 'mycontainer',
         account_name => $account_name,
         account_key => $account_key,

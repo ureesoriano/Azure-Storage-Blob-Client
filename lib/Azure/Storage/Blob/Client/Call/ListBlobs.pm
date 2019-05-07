@@ -1,4 +1,4 @@
-package Azure::Storage::Blob::Client::ListBlobs;
+package Azure::Storage::Blob::Client::Call::ListBlobs;
 use Moose;
 use Azure::Storage::Blob::Client::Meta::Attribute::Custom::Trait::URIParameter;
 use Azure::Storage::Blob::Client::Meta::Attribute::Custom::Trait::HeaderParameter;

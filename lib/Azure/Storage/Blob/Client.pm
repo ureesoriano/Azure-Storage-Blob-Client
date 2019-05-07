@@ -1,9 +1,9 @@
 package Azure::Storage::Blob::Client;
 use Moose;
 use Azure::Storage::Blob::Client::Caller;
-use Azure::Storage::Blob::Client::GetBlobProperties;
-use Azure::Storage::Blob::Client::ListBlobs;
-use Azure::Storage::Blob::Client::PutBlob;
+use Azure::Storage::Blob::Client::Call::GetBlobProperties;
+use Azure::Storage::Blob::Client::Call::ListBlobs;
+use Azure::Storage::Blob::Client::Call::PutBlob;
 
 our $VERSION = 0.01;
 
@@ -20,7 +20,7 @@ has api_version => (is => 'ro', isa => 'Str', default => '2018-03-28');
 
 sub GetBlobProperties {
   my ($self, %params) = @_;
-  my $call_object = Azure::Storage::Blob::Client::GetBlobProperties->new(
+  my $call_object = Azure::Storage::Blob::Client::Call::GetBlobProperties->new(
     account_name => $self->account_name,
     api_version => $self->api_version,
     %params,
@@ -34,7 +34,7 @@ sub GetBlobProperties {
 
 sub ListBlobs {
   my ($self, %params) = @_;
-  my $call_object = Azure::Storage::Blob::Client::ListBlobs->new(
+  my $call_object = Azure::Storage::Blob::Client::Call::ListBlobs->new(
     account_name => $self->account_name,
     api_version => $self->api_version,
     %params,
@@ -48,7 +48,7 @@ sub ListBlobs {
 
 sub PutBlob {
   my ($self, %params) = @_;
-  my $call_object = Azure::Storage::Blob::Client::PutBlob->new(
+  my $call_object = Azure::Storage::Blob::Client::Call::PutBlob->new(
     account_name => $self->account_name,
     api_version => $self->api_version,
     %params,
