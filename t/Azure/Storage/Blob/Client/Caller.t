@@ -12,6 +12,8 @@ use Azure::Storage::Blob::Client::Caller;
 
 Feature 'Azure Storage Account API Exceptions handling' => sub {
   my ($caller, $error, $ua_mock, $signer_mock);
+  my $account_name = 'myaccount';
+  my $account_key = 'supersecret';
 
   before each => sub {
     $ua_mock = mock();
@@ -32,8 +34,8 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
     Given 'a GetBlobProperties call object' => sub {
       $call_object = Azure::Storage::Blob::Client::GetBlobProperties->new(
         container => 'mycontainer',
-        account_name => 'myaccount',
-        account_key => 'supersecret',
+        account_name => $account_name,
+        account_key => $account_key,
         blob_name => 'myblob',
       );
     };
@@ -50,7 +52,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
             HTTP::Headers->new('x-ms-error-code' => 'AuthenticationFailed'),
           )
         );
-      trap { $caller->request($call_object) };
+      trap { $caller->request($account_name, $account_key, $call_object) };
       $error = $trap->die;
     };
 
@@ -65,8 +67,8 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
     Given 'a GetBlobProperties call object' => sub {
       $call_object = Azure::Storage::Blob::Client::GetBlobProperties->new(
         container => 'mycontainer',
-        account_name => 'myaccount',
-        account_key => 'supersecret',
+        account_name => $account_name,
+        account_key => $account_key,
         blob_name => 'myblob',
       );
     };
@@ -83,7 +85,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
             HTTP::Headers->new('x-ms-error-code' => 'InvalidAuthenticationInfo'),
           )
         );
-      trap { $caller->request($call_object) };
+      trap { $caller->request($account_name, $account_key, $call_object) };
       $error = $trap->die;
     };
 
@@ -98,8 +100,8 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
     Given 'a GetBlobProperties call object' => sub {
       $call_object = Azure::Storage::Blob::Client::GetBlobProperties->new(
         container => 'mycontainer',
-        account_name => 'myaccount',
-        account_key => 'supersecret',
+        account_name => $account_name,
+        account_key => $account_key,
         blob_name => 'myblob',
       );
     };
@@ -115,7 +117,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
             HTTP::Headers->new('x-ms-error-code' => 'BlobAlreadyExists'),
           )
         );
-      trap { $caller->request($call_object) };
+      trap { $caller->request($account_name, $account_key, $call_object) };
       $error = $trap->die;
     };
 
@@ -130,8 +132,8 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
     Given 'a GetBlobProperties call object' => sub {
       $call_object = Azure::Storage::Blob::Client::GetBlobProperties->new(
         container => 'mycontainer',
-        account_name => 'myaccount',
-        account_key => 'supersecret',
+        account_name => $account_name,
+        account_key => $account_key,
         blob_name => 'myblob',
       );
     };
@@ -147,7 +149,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
             HTTP::Headers->new('x-ms-error-code' => 'BlobNotFound'),
           )
         );
-      trap { $caller->request($call_object) };
+      trap { $caller->request($account_name, $account_key, $call_object) };
       $error = $trap->die;
     };
 
@@ -162,8 +164,8 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
     Given 'a GetBlobProperties call object' => sub {
       $call_object = Azure::Storage::Blob::Client::GetBlobProperties->new(
         container => 'mycontainer',
-        account_name => 'myaccount',
-        account_key => 'supersecret',
+        account_name => $account_name,
+        account_key => $account_key,
         blob_name => 'myblob',
       );
     };
@@ -179,7 +181,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
             HTTP::Headers->new('x-ms-error-code' => 'ContainerNotFound'),
           )
         );
-      trap { $caller->request($call_object) };
+      trap { $caller->request($account_name, $account_key, $call_object) };
       $error = $trap->die;
     };
 
@@ -194,8 +196,8 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
     Given 'a GetBlobProperties call object' => sub {
       $call_object = Azure::Storage::Blob::Client::GetBlobProperties->new(
         container => 'mycontainer',
-        account_name => 'myaccount',
-        account_key => 'supersecret',
+        account_name => $account_name,
+        account_key => $account_key,
         blob_name => 'myblob',
       );
     };
@@ -211,7 +213,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
             HTTP::Headers->new('x-ms-error-code' => 'InvalidBlobType'),
           )
         );
-      trap { $caller->request($call_object) };
+      trap { $caller->request($account_name, $account_key, $call_object) };
       $error = $trap->die;
     };
 
@@ -226,8 +228,8 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
     Given 'a GetBlobProperties call object' => sub {
       $call_object = Azure::Storage::Blob::Client::GetBlobProperties->new(
         container => 'mycontainer',
-        account_name => 'myaccount',
-        account_key => 'supersecret',
+        account_name => $account_name,
+        account_key => $account_key,
         blob_name => 'myblob',
       );
     };
@@ -243,7 +245,7 @@ Feature 'Azure Storage Account API Exceptions handling' => sub {
             HTTP::Headers->new('x-ms-error-code' => undef),
           )
         );
-      trap { $caller->request($call_object) };
+      trap { $caller->request($account_name, $account_key, $call_object) };
       $error = $trap->die;
     };
 

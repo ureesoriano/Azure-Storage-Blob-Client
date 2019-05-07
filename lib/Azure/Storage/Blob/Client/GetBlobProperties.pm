@@ -15,9 +15,8 @@ has method => (is => 'ro', init_arg => undef, default => 'HEAD');
 
 with 'Azure::Storage::Blob::Client::Call';
 
-has container => (is => 'ro', isa => 'Str', required => 1);
 has account_name => (is => 'ro', isa => 'Str', required => 1);
-has account_key => (is => 'ro', isa => 'Str', required => 1);
+has container => (is => 'ro', isa => 'Str', required => 1);
 has blob_name => (is => 'ro', isa => 'Str', required => 1);
 
 sub parse_response {
