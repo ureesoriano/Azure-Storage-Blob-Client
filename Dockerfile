@@ -12,6 +12,7 @@ RUN export DEBIAN_FRONTEND=noninteractive
   libmodule-install-perl \
   libssl-dev \
   libxml2-dev \
+  git \
 && apt clean
 
 # Install cpm
@@ -23,4 +24,6 @@ WORKDIR /code
 # Install perl dependencies
 RUN cpm install -g \
   --cpanfile=./cpanfile \
+  --with-test \
+  --with-build \
 && rm -rf ~/.perl-cpm

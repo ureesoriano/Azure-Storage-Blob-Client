@@ -1,3 +1,4 @@
+# ABSTRACT: Azure Storage Blob API client
 package Azure::Storage::Blob::Client;
 use Moose;
 use Azure::Storage::Blob::Client::Caller;
