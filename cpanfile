@@ -18,3 +18,10 @@ on test => sub {
   requires 'Test::MockTime';
   requires 'Test::Spec::Acceptance';
 };
+
+on build => sub {
+  requires 'Dist::Zilla';
+  requires 'Dist::Zilla::Plugin::Prereqs::FromCPANfile';
+  requires 'Dist::Zilla::Plugin::VersionFromModule';
+  requires 'Dist::Zilla::PluginBundle::Git';
+};
