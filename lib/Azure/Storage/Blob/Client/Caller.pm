@@ -40,6 +40,7 @@ sub _prepare_request {
   my ($self, $account_name, $account_key, $call_object) = @_;
 
   if (
+    $call_object->operation ne 'DeleteBlob' and
     $call_object->operation ne 'GetBlobProperties' and
     $call_object->operation ne 'ListBlobs' and
     $call_object->operation ne 'PutBlob'
