@@ -7,18 +7,18 @@ use MIME::Base64;
 sub calculate_signature {
   my ($self, $request, $account_name, $account_key) = @_;
   my $signature_string =
-    $request->method()                      ."\n".
-    $request->header('Content-Encoding')    ."\n".
-    $request->header('Content-Language')    ."\n".
-    $request->header('Content-Length')      ."\n".
-    $request->header('Content-MD5')         ."\n".
-    $request->header('Content-Type')        ."\n".
-    $request->header('Date')                ."\n".
-    $request->header('If-Modified-Since')   ."\n".
-    $request->header('If-Math')             ."\n".
-    $request->header('If-None-Match')       ."\n".
-    $request->header('If-Unmodified-Since') ."\n".
-    $request->header('Range')               ."\n".
+    $request->method()                              ."\n".
+    ($request->header('Content-Encoding')    || '') ."\n".
+    ($request->header('Content-Language')    || '') ."\n".
+    ($request->header('Content-Length')      || '') ."\n".
+    ($request->header('Content-MD5')         || '') ."\n".
+    ($request->header('Content-Type')        || '') ."\n".
+    ($request->header('Date')                || '') ."\n".
+    ($request->header('If-Modified-Since')   || '') ."\n".
+    ($request->header('If-Math')             || '') ."\n".
+    ($request->header('If-None-Match')       || '') ."\n".
+    ($request->header('If-Unmodified-Since') || '') ."\n".
+    ($request->header('Range')               || '') ."\n".
     $self->_canonicalized_headers_string($request).
     $self->_canonicalized_resource_string($request, $account_name);
 
