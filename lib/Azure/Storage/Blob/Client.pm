@@ -55,11 +55,39 @@ sub ListBlobs {
     api_version => $self->api_version,
     %params,
   );
-  return $self->caller->request(
-    $self->account_name,
-    $self->account_key,
-    $call_object,
-  );
+
+  if ($call_object->auto_retrieve_paginated_results) {
+    my $response = $self->caller->request(
+      $self->account_name,
+      $self->account_key,
+      $call_object,
+    );
+    my $blob_list = $response->{Blobs} || [];
+
+    while ($response->{NextMarker}) {
+      $call_object = Azure::Storage::Blob::Client::Call::ListBlobs->new(
+        account_name => $self->account_name,
+        api_version => $self->api_version,
+        %params,
+        marker => $response->{NextMarker},
+      );
+      $response = $self->caller->request(
+        $self->account_name,
+        $self->account_key,
+        $call_object,
+      );
+      push @$blob_list, @{ $response->{Blobs} };
+    }
+
+    return { Blobs => $blob_list };
+  }
+  else {
+    return $self->caller->request(
+      $self->account_name,
+      $self->account_key,
+      $call_object,
+    );
+  }
 }
 
 sub PutBlob {

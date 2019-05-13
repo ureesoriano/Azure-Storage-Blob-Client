@@ -23,6 +23,7 @@ has container => (is => 'ro', isa => 'Str', required => 1);
 has prefix => (is => 'ro', isa => 'Str', traits => ['URIParameter'], required => 1);
 has maxresults => (is => 'ro', isa => 'Str', traits => ['URIParameter'], required => 0);
 has marker => (is => 'ro', isa => 'Str', traits => ['URIParameter'], required => 0);
+has auto_retrieve_paginated_results => (is => 'ro', isa => 'Bool', default => 0);
 
 sub parse_response {
   my ($self, $response) = @_;
