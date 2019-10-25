@@ -24,6 +24,5 @@ WORKDIR /code
 # Install perl dependencies
 RUN cpm install -g \
   --cpanfile=./cpanfile \
-  --with-test \
   --with-develop \
 && rm -rf ~/.perl-cpm
