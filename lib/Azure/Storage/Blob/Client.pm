@@ -7,7 +7,7 @@ use Azure::Storage::Blob::Client::Call::GetBlobProperties;
 use Azure::Storage::Blob::Client::Call::ListBlobs;
 use Azure::Storage::Blob::Client::Call::PutBlob;
 
-our $VERSION = 0.04;
+our $VERSION = 0.05;
 
 has caller => (
   is => 'ro',
