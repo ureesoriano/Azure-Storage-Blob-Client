@@ -25,5 +25,5 @@ WORKDIR /code
 RUN cpm install -g \
   --cpanfile=./cpanfile \
   --with-test \
-  --with-build \
+  --with-develop \
 && rm -rf ~/.perl-cpm
