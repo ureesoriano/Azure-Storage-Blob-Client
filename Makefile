@@ -22,3 +22,9 @@ test-watch:
 		-v $(shell pwd):/code \
 		azure-storage-blob-client:latest \
 		provewatcher -l -r t/ --watch lib/ --watch t/
+
+generate-pod:
+	docker run --rm \
+		-v $(shell pwd):/code \
+		azure-storage-blob-client:latest \
+		perl script/generate_pod_documentation.pl

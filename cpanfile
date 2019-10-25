@@ -14,11 +14,12 @@ requires 'XML::LibXML';
 
 on develop => sub {
   requires 'App::Prove::Watch';
+  requires 'Dist::Zilla';
+  requires 'Dist::Zilla::PluginBundle::Git';
+  requires 'Dist::Zilla::Plugin::Prereqs::FromCPANfile';
+  requires 'Dist::Zilla::Plugin::VersionFromModule';
+  requires 'Markdown::Pod';
   requires 'Test::Exception';
   requires 'Test::MockTime';
   requires 'Test::Spec::Acceptance';
-  requires 'Dist::Zilla';
-  requires 'Dist::Zilla::Plugin::Prereqs::FromCPANfile';
-  requires 'Dist::Zilla::Plugin::VersionFromModule';
-  requires 'Dist::Zilla::PluginBundle::Git';
 };
