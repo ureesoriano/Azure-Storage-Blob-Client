@@ -234,6 +234,12 @@ Marks a blob for deletion.
 
 
 
+=head1 Contributors && Kudos:
+
+* Alexandr Ciornii (@chorny): For pointing out build dependencies were being installed for end-users.
+
+
+
 =head1 AUTHOR
 
  
