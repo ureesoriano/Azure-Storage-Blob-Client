@@ -12,14 +12,11 @@ requires 'Moose';
 requires 'Throwable::Error';
 requires 'XML::LibXML';
 
-on test => sub {
+on develop => sub {
   requires 'App::Prove::Watch';
   requires 'Test::Exception';
   requires 'Test::MockTime';
   requires 'Test::Spec::Acceptance';
-};
-
-on develop => sub {
   requires 'Dist::Zilla';
   requires 'Dist::Zilla::Plugin::Prereqs::FromCPANfile';
   requires 'Dist::Zilla::Plugin::VersionFromModule';
