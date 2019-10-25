@@ -106,6 +106,9 @@ $client->DeleteBlob(
 );
 ```
 
+# Contributors && Kudos:
+* Alexandr Ciornii (@chorny): For pointing out build dependencies were being installed for end-users.
+
 # AUTHOR
 ```
 Oriol Soriano
