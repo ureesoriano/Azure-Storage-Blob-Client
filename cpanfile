@@ -19,7 +19,7 @@ on test => sub {
   requires 'Test::Spec::Acceptance';
 };
 
-on build => sub {
+on develop => sub {
   requires 'Dist::Zilla';
   requires 'Dist::Zilla::Plugin::Prereqs::FromCPANfile';
   requires 'Dist::Zilla::Plugin::VersionFromModule';
